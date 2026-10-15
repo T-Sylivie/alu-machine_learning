@@ -25,11 +25,9 @@ class MultiNormal:
         if x.shape != (dimensions, 1):
             message = "x must have the shape ({}, 1)".format(dimensions)
             raise ValueError(message)
-        difference = x - self.mean
         determinant = np.linalg.det(self.cov)
         inverse = np.linalg.inv(self.cov)
-        exponent = -0.5 * np.matmul(
-            np.matmul(difference.T, inverse), difference)[0, 0]
-        denominator = ((2 * np.pi) ** (dimensions / 2)
-                       * determinant ** 0.5)
-        return np.exp(exponent) / denominator
+        normalizer = 1 / np.sqrt((2 * np.pi) ** dimensions * determinant)
+        difference = x - self.mean
+        exponent = -0.5 * np.dot(np.dot(difference.T, inverse), difference)
+        return float(normalizer * np.exp(exponent)[0, 0])
