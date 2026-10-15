@@ -21,4 +21,4 @@ def likelihood(x, n, P):
     coefficient = 1
     for index in range(1, successes + 1):
         coefficient = coefficient * (n - successes + index) // index
-    return coefficient * np.power(P, x) * np.power(1 - P, n - x)
+    return float(coefficient) * np.power(P, x) * np.power(1 - P, n - x)

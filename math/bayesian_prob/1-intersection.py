@@ -27,6 +27,6 @@ def intersection(x, n, P, Pr):
     coefficient = 1
     for index in range(1, successes + 1):
         coefficient = coefficient * (n - successes + index) // index
-    likelihoods = (coefficient * np.power(P, x)
+    likelihoods = (float(coefficient) * np.power(P, x)
                    * np.power(1 - P, n - x))
     return likelihoods * Pr
