@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 """Perform strided convolution on batches of grayscale images."""
 
-from math import ceil
-
 import numpy as np
 
 
@@ -13,8 +11,8 @@ def convolve_grayscale(images, kernel, padding='same', stride=(1, 1)):
     stride_height, stride_width = stride
 
     if padding == 'same':
-        output_height = int(ceil(height / stride_height))
-        output_width = int(ceil(width / stride_width))
+        output_height = (height + stride_height - 1) // stride_height
+        output_width = (width + stride_width - 1) // stride_width
         total_height = max((output_height - 1) * stride_height
                            + kernel_height - height, 0)
         total_width = max((output_width - 1) * stride_width
